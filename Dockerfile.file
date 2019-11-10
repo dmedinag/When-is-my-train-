@@ -1,0 +1,18 @@
+FROM node:lts-alpine
+
+ARG proxy
+
+RUN npm config set http-proxy ${proxy}
+RUN npm config set https-proxy ${proxy}
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 3000:3000
+
+CMD npm start
